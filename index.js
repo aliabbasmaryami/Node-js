@@ -1,13 +1,24 @@
-// const { error } = require("console");
-const fs = require("fs");
+const express = require("express");
+const app = express();
 const path = require("path");
-const dirpath = path.join(__dirname, "files");
-// for (i = 0; i <= 5; i++) {
-//   fs.writeFileSync(dirpath + "/hello " + i + ".txt", "this is a file system");
-// }
 
-fs.readdir(dirpath, (err, files) => {
-  files.forEach((item) => {
-    console.log("this is files name", item);
-  });
+// This is called parsers
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
+
+app.get("/", function (req, res) {
+  res.render("index");
+});
+app.get("/profile/:username", function (req, res) {
+  res.send(`welocme,${req.params.username}`);
+});
+app.get("/profile/:username/:age", function (req, res) {
+  res.send(`welocme,${req.params.username} of age ${req.params.age}`);
+});
+
+app.listen(3000, function () {
+  console.log("port 3000");
 });
