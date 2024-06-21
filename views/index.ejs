@@ -5,9 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/Stylesheets/Style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <h1>Hello world</h1>
+    <div class="main w-full min-h-screen bg-zinc-900">
+      <div class="form px-10 py-10 text-white">
+        <form action="/create" method="post">
+          <input
+            class="block text-white outline-none px-5 py-2 bg-zinc-800 w-full rounded-md"
+            type="text"
+            placeholder="title goes here"
+            name="title"
+            required
+          />
+          <textarea
+            class="block text-white outline-none px-5 py-2 bg-zinc-800 resize-none w-full mt-2 rounded-md"
+            placeholder="description"
+            name="details"
+            required
+          ></textarea>
+          <input
+            class="mt-2 bg-blue-600 py-2 px-2 rounded-md"
+            type="submit"
+            value="create task"
+          />
+        </form>
+      </div>
+      <div class="tasks p-10 flex gap-3 flex-wrap">
+        <% if (files && files.length > 0) { %> <% files.forEach(function(val) {
+        %>
+        <div class="task w-72 px-3 py-4 rounded-md bg-zinc-800">
+          <h1 class="text-white text-3xl tracking-tighter">
+            <%= val.replace('.txt', '') %>
+          </h1>
+          <a class="text-blue-500 inline-block mt-3" href="/files/<%= val %>"
+            >Read more...</a
+          >
+        </div>
+        <% }) %> <% } else { %>
+        <h3 class="text-white text-1xl px-10">No task here</h3>
+        <% } %>
+      </div>
+    </div>
     <script src="/Javascript/Script.js"></script>
   </body>
 </html>
